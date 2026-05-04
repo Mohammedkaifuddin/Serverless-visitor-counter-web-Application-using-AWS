@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Counter</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color: white;
+        margin-top: 100px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background: #1e293b;
+        padding: 30px;
+        border-radius: 12px;
+        display: inline-block;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    p {
+        font-size: 22px;
+        margin: 10px 0;
+    }
+
+    span {
+        color: #38bdf8;
+        font-weight: bold;
+    }
+</style>
+
+</head>
+
+<body>
+
+<h1>Visitor Counter</h1>
+
+<div class="card">
+    <p>Visitors: <span id="count">Loading...</span></p>
+    <p>Last Visit: <span id="time">Loading...</span></p>
+</div>
+
+<script>
+    fetch("https://byu5tg890h.execute-api.eu-north-1.amazonaws.com/count")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("count").innerText = data.count;
+        document.getElementById("time").innerText = data.last_visit;
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("count").innerText = "Error";
+        document.getElementById("time").innerText = "Error";
+    });
+</script>
+</body>
+</html>
